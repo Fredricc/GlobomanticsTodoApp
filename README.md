@@ -1,0 +1,1 @@
+# GlobalMantics Project
