@@ -1,7 +1,7 @@
 ﻿namespace Globomantics.Domain;
 
 public record Bug(string Title,
-    string Desription,
+    string Description,
     Severity Severity,
     string AffectedVersion,
     int AffectedUsers,
