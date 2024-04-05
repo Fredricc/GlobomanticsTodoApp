@@ -19,7 +19,7 @@ namespace Globomantics.Windows.ViewModels
 
         public Todo? Parent
         {
-            get => Parent;
+            get => parent;
             set
             {
                 parent = value;
@@ -29,7 +29,7 @@ namespace Globomantics.Windows.ViewModels
         }
         public string Title
         {
-            get => Title;
+            get => title;
             set
             {
                 title = value;
@@ -39,7 +39,7 @@ namespace Globomantics.Windows.ViewModels
         }
         public bool IsCompleted
         {
-            get => IsCompleted;
+            get => isCompleted;
             set
             {
                 isCompleted = value;
