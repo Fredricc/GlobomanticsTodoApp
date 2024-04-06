@@ -1,5 +1,7 @@
-﻿using Globomantics.Domain;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using Globomantics.Domain;
 using Globomantics.Windows.Factories;
+using Globomantics.Windows.Messages;
 using Globomantics.Windows.ViewModels;
 using Microsoft.Win32;
 using System;
@@ -35,6 +37,18 @@ public partial class MainWindow : Window
         };
 
         TodoType.ItemsSource = TodoViewModelFactory.TodoTypes;
+
+        WeakReferenceMessenger.Default.Register<TodoSavedMessage>(this,
+            (sender, message) =>
+            {
+                CreateTodoControlContainer.Children.Clear();
+            });
+
+        WeakReferenceMessenger.Default.Register<TodoDeletedMessage>(this,
+            (sender, message) =>
+            {
+                CreateTodoControlContainer.Children.Clear();
+            });
     }
 
     protected override async void OnActivated(EventArgs e)

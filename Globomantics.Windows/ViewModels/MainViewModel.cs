@@ -1,6 +1,11 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Messaging;
+using Globomantics.Domain;
+using Globomantics.Windows.Messages;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -43,8 +48,67 @@ public class MainViewModel : ObservableObject,
     public Func<string>? ShowSaveFileDialog { get; set; }
     public Func<string, bool>? AskForConfirmation { get; set; }
 
+    public ObservableCollection<Todo> Completed { get; set; } = new();
+    public ObservableCollection<Todo> Unfinished { get; set; } = new();
     public MainViewModel()
     {
+        WeakReferenceMessenger.Default.Register<TodoSavedMessage>(this,
+            (sender, message) =>
+            {
+                var item = message.Value;
+
+                if (item.IsCompleted)
+                {
+                    var existing = Unfinished.FirstOrDefault(i => i.Id == item.Id);
+
+                    if(existing is not null)
+                    {
+                        Unfinished.Remove(existing);
+                    }
+
+                    ReplaceOrAdd(Completed, item);
+                }
+                else
+                {
+                    var existing = Completed.FirstOrDefault(i => i.Id == item.Id);
+
+                    if (existing is not null)
+                    {
+                        Completed.Remove(existing);
+                    }
+
+                    ReplaceOrAdd(Unfinished, item);
+                }
+            });
+
+        WeakReferenceMessenger.Default.Register<TodoDeletedMessage>(this,
+            (sender, message) =>
+            {
+                var item = message.Value;
+
+                var UnfinishedItem = Unfinished.FirstOrDefault(i => i.Id == item.Id);
+
+                 if (UnfinishedItem is not null)
+                    {
+                        Unfinished.Remove(UnfinishedItem);
+                    }
+            });
+    }
+
+    private void ReplaceOrAdd(ObservableCollection<Todo> collection, Todo item)
+    {
+       var existingItem = collection.FirstOrDefault(x => x.Id == item.Id);
+
+        if (existingItem is not null)
+        {
+            var index = Unfinished.IndexOf(existingItem);
+            collection[index] = item;
+        }
+        else
+        {
+            collection.Add(item);
+        }
+
     }
 
     public async Task InitializeAsync()

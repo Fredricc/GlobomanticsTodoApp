@@ -1,6 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using Globomantics.Domain;
 using Globomantics.Infrastructure.Data.Repositories;
+using Globomantics.Windows.Messages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -64,7 +66,7 @@ namespace Globomantics.Windows.ViewModels
             await repository.AddAsync(Model);
             await repository.SaveChangesAsync();
 
-            //TODO: Send message that the Item is saved
+            WeakReferenceMessenger.Default.Send<TodoSavedMessage>(new(Model)); 
         }
 
         public override void UpdateModel(Todo model)
