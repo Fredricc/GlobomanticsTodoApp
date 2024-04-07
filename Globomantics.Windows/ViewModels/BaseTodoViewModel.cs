@@ -81,7 +81,7 @@ namespace Globomantics.Windows.ViewModels
         public virtual void UpdateModel(Todo model)
         {
             if(model is null) 
-            {
+            { 
                 return;
             }
 
