@@ -2,9 +2,10 @@
 
 namespace Globomantics.Infrastructure.Data.Models
 {
-    public class Bug
+    public class Bug : TodoTask
     {
-        public String Description { get; set; } = default!;
+        public string Description { get; set; } = default!;
+        public User? CreatedBy { get; set; } = default!;
         public User? AssignedTo { get; set; } = default!;
         public Severity Severity { get; set; }
         public string AffectedVersion { get; set; } = default!;

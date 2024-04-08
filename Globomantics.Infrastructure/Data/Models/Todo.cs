@@ -9,7 +9,7 @@ namespace Globomantics.Infrastructure.Data.Models
         public string Title { get; set; } = default!;
         public DateTimeOffset CreatedDate { get; set; } = DateTimeOffset.UtcNow;
         public User CreatedBy { get; set; } = default!;
-        public bool Completed { get; set; }
+        public bool IsCompleted { get; set; }
         public bool IsDeleted { get; set; }
         public virtual Todo? Parent { get; set; }
 
