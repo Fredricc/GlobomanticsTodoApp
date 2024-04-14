@@ -76,7 +76,7 @@ namespace Globomantics.Infrastructure.Data
                 IsCompleted = task.IsCompleted,
                 IsDeleted = task.IsDeleted,
                 Title = task.Title,
-                CreatedById = feature.CreatedBy?.Id
+                CreatedById = task.CreatedBy?.Id
             };
         }
     }

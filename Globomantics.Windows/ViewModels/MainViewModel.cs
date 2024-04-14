@@ -143,7 +143,7 @@ public class MainViewModel : ObservableObject,
             }
         });
     }
-     
+
     private async Task ExportAsync()
     {
         var filename = ShowSaveFileDialog?.Invoke();
@@ -237,7 +237,7 @@ public class MainViewModel : ObservableObject,
     {
         if (isInitialized) return;
 
-        App.CurrentUser = await userRepository.FindByAsync("Filip");
+        App.CurrentUser = await userRepository.FindByAsync("Fred");
 
         var items = await todoRepository.AllAsync();
 
